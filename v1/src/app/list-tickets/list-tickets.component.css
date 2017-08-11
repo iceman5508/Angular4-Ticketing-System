@@ -1,0 +1,198 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
+
+body {
+    background-color:#F7F7F7;
+    font-family: 'Open Sans', sans-serif;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+
+
+/*Forms setup*/
+.form-control {
+    border-radius:0;
+    box-shadow:none;
+    height:auto;
+}
+.float-label{
+    font-size:10px;
+}
+input[type="text"].form-control,
+input[type="search"].form-control{
+    border:none;
+    border-bottom:1px dotted #CFCFCF;
+}
+textarea {
+    border:1px dotted #CFCFCF!important;
+    height:130px!important;
+}
+/*Content Container*/
+.content-container {
+    background-color:#fff;
+    padding:35px 20px;
+    margin-bottom:20px;
+}
+h1.content-title{
+    font-size:32px;
+    font-weight:300;
+    text-align:center;
+    margin-top:0;
+    margin-bottom:20px;
+    font-family: 'Open Sans', sans-serif!important;
+}
+/*Compose*/
+.btn-send{
+    text-align:center;
+    margin-top:20px;
+}
+/*mail list*/
+
+ul.mail-list{
+    padding:0;
+    margin:0;
+    list-style:none;
+    margin-top:30px;
+}
+ul.mail-list li {
+    display:block;
+
+    padding:20px;
+    text-decoration:none;
+}
+ul.mail-list li:last-child {
+    border-bottom:none;
+}
+ul.mail-list li:hover {
+
+}
+ul.mail-list li span{
+    display:block;
+}
+ul.mail-list li span.mail-sender{
+    font-weight:600;
+    color:#8F8F8F;
+}
+ul.mail-list li span.mail-subject{
+    color:#8C8C8C;
+}
+ul.mail-list li span.mail-message-preview{
+    display:block;
+    color:#A8A8A8;
+}
+.mail-search{
+    border-bottom-color:#7FBCC9!important;
+}
+ .meta span
+ {
+     display:block;
+     text-align: center;
+
+
+ }
+
+ .list
+ {
+     border-bottom:1px dotted #CFCFCF;
+ }
+
+ .list:hover{
+     background-color:#DBF9FF;
+     cursor: pointer;
+ }
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+    min-width: 40%;
+    border-radius: 13px;
+    border-top:none;
+}
+
+/* The Close Button */
+.close {
+    color: red;
+    float: right;
+    font-size: 28px;
+    font-weight: 800;
+    margin-right: 10px;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.tk-header{
+
+    color: white;
+    text-align: center;
+    border-top-right-radius: 13px;
+    -webkit-border-top-right-radius: 13px;
+    border-top-left-radius: 13px;
+    -webkit-border-top-left-radius: 13px;
+    color: black;
+    background-color: #7FBCC9;
+    border-bottom: 1px dashed black;
+    margin-bottom: 20px;
+}
+
+
+.tk-title
+{
+    padding: 5px;
+    color:white;
+}
+
+
+.tk-content{
+    padding:20px;
+
+
+}
+
+.tk-content .tk-detail textarea
+{
+    resize: none;
+}
+
+.buttonGroup
+{
+    margin-top: 20px;
+}
+
+/*Navbar*/
+.navbar-default {
+    background-color:#fff;
+    border-bottom-color:#E3E3E3;
+}
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:hover,
+.navbar-default .navbar-nav>.active>a:focus{
+    background-color:#7FBCC9;
+}
+.navbar-default .btn-compose {
+    padding-right:10px;
+    border-right:1px solid #F0F0F0;
+}
+

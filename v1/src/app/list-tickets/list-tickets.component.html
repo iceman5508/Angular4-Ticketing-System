@@ -1,0 +1,279 @@
+<!--header-->
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="btn-compose pull-left" (click)=" View('createView')">
+                <a type="button" class="btn btn-danger navbar-btn" href="#compose" role="tab" data-toggle="tab">
+                    <span class="glyphicon glyphicon-pencil" ></span> New Ticket</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#inbox" role="tab" data-toggle="tab" (click)="allTickets(); state = 1;">
+                        All Tickets
+                    </a>
+                </li>
+                <li><a href="#sent-mail" role="tab" data-toggle="tab" (click)="openTickets(); state = 2;">Open Tickets</a>
+
+                </li>
+                <li><a href="#draft" role="tab" data-toggle="tab" (click)="closedTickets(); state = 3;">Closed Tickets</a>
+
+                </li>
+              <!--  <li><a href="#trash" role="tab" data-toggle="tab">Overdue Tickets</a>
+
+                </li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hello Isaac</a>
+
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<!--header-->
+
+
+<div class="tab-content">
+  <div class="tab-pane active" id="inbox">
+
+
+    <div class="container">
+      <div class="content-container clearfix">
+
+        <div class="col-md-12">
+          <h1 class="content-title">Tickets</h1>
+
+          <input type="search" placeholder="Search Tickets" class="form-control mail-search" />
+
+
+          <ul class="mail-list" *ngIf="filterdTickets">
+            <div class="row list" *ngFor="let ticket of filterdTickets" (click)="viewTicket(ticket)">
+              <div class="col-md-8" >
+                  <li>
+
+                      <span class="mail-sender">Title: {{ticket.title}}  </span>
+                      <span class="mail-subject">Author: {{ticket.sonisId}} </span>
+                      <span class="mail-subject">Date Created: {{ticket.createdDate}} </span>
+                      <span class="mail-subject">Email: {{ticket.authorEmail}}</span>
+                  </li>
+
+              </div>
+                  <div class="col-md-4 meta">
+                    <span>Department: {{ticket.department}} </span>
+                    <span>Category: {{ticket.category}}</span>
+                    <span>Assigned To: {{ticket.assigenedTo}} </span>
+                    <span>Status: {{ticket.status}}</span>
+                    <span>Date Closed: {{ticket.closedDate}} </span>
+                    <span>Closed By: {{ticket.closedBy}} </span>
+
+                  </div>
+             </div>
+          </ul>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- The view ticket -->
+
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+
+        <div *ngIf="currentTicket">
+
+        <div class="tk-header">
+        <span class="close" (click)="closeView('myModal')">&times;</span>
+        <p class="tk-title">{{currentTicket.title}}</p>
+        </div>
+        <div class="tk-content">
+
+            <div class="tk-detail">
+                <div class="form-group">
+                    <input id="tokenfield" type="text" class="form-control"
+                      value="Author: {{currentTicket.sonisId}} ({{currentTicket.authorEmail}})" readonly/>
+
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control"
+                           value="Date Created: {{currentTicket.createdDate}}"  readonly>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control"
+                           value="Department Assigned To: {{currentTicket.department}}
+                    Agent Assigned To: {{currentTicket.assigenedTo}}" readonly/>
+                </div>
+
+
+                    <div class="form-group" *ngIf="currentTicket.status == 'closed'">
+                        <input type="text" class="form-control"
+                               value="Status:  {{currentTicket.status}} on ({{currentTicket.closedDate}}) by {{currentTicket.closedBy}}" readonly />
+                    </div>
+                    <div class="form-group" *ngIf="currentTicket.status == 'open'">
+                        <input type="text" class="form-control" value="Status:  {{currentTicket.status}}" readonly />
+                    </div>
+
+
+                <textarea class="form-control" placeholder="message" readonly>{{currentTicket.body}}</textarea>
+                <div class="buttonGroup">
+                    <button type="button" class="btn btn-danger" (click)="closeTicket()">Close Ticket</button>
+                    <button type="button" class="btn btn-success" (click)="View('assignView' , 'myModal')">Assign Ticket</button>
+                    <button type="button" class="btn btn-info" (click)="View('noteView', 'myModal')">Notes</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteTicket()">Delete Ticket</button>
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- The create ticket -->
+
+<div id="createView" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="tk-header">
+            <span class="close" (click)="closeView('createView')">&times;</span>
+            <p class="tk-title">New Ticket</p>
+        </div>
+        <div class="tk-content">
+
+            <div class="tk-detail">
+                <div class="form-group">
+                    <input [(ngModel)]="makeTicket.title" id="tokenfield2" type="text" class="form-control" placeholder="Title"/>
+
+                </div>
+                <div class="form-group">
+                    <input  type="text"  class="form-control" placeholder="Email"  [(ngModel)]="makeTicket.email"/>
+                </div>
+
+                <textarea  class="form-control"  placeholder="message" [(ngModel)]="makeTicket.body"></textarea>
+                <div class="buttonGroup">
+                    <button *ngIf="allFieldsFilled()" type="button" class="btn btn-success" disabled >Create</button>
+                    <button *ngIf="!allFieldsFilled()" type="button" class="btn btn-success"
+                            (click)="createTicket()">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- The Assign ticket -->
+
+<div id="assignView" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+
+        <div *ngIf="currentTicket">
+
+            <div class="tk-header">
+                <span class="close" (click)="closeView('assignView', 'myModal')">&times;</span>
+                <p class="tk-title">{{currentTicket.title}}</p>
+            </div>
+            <div class="tk-content">
+
+                <div class="tk-detail">
+                    <div class="form-group text-center" >
+                      <label for="depSelect">Department</label>:
+                        <select id="depSelect" (change)="onDeptChange($event.target.value)">
+                            <option *ngFor="let dept of Agents.department;">{{dept}}</option>
+                        </select>
+
+                    </div>
+
+                    <div class="form-group text-center">
+                        <label for="ageSelect">{{Agents.department[deptInd]}} Agents</label>:
+                        <select id="ageSelect" (change)="onAgeChange($event.target.value)">
+                            <option *ngFor="let dept of Agents.agent[deptInd]">{{dept}}</option>
+                        </select>
+                    </div>
+
+                    <div class="buttonGroup text-center">
+
+                        <button type="button" class="btn btn-success" (click)="assignAgent()">Confirm</button>
+                        <button type="button" class="btn btn-danger" (click)="closeView('assignView', 'myModal')">Cancel</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- The Assign ticket -->
+
+<div id="noteView" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+
+        <div *ngIf="currentTicket">
+
+            <div class="tk-header">
+                <span class="close" (click)="closeView('noteView', 'myModal')">&times;</span>
+                <p class="tk-title">{{currentTicket.title}}</p>
+            </div>
+            <div class="tk-content">
+
+                <div class="tk-detail">
+                    <div class="form-group text-center" *ngFor="let note of currentTicket.notes; let i = index">
+
+                        <label for="{{i}}"> by: {{note.sonisId}} ({{note.createdDate}})</label>
+                        <input type="text" id = "{{i}}" class="form-control" value="{{note.body}}" readonly />
+                        <hr>
+                    </div>
+
+
+                    <textarea class="form-control" placeholder="Note" *ngIf="addNote"  [(ngModel)]="Note.body"></textarea>
+                    <div class="buttonGroup text-center">
+
+                        <button type="button" class="btn btn-success"
+                                (click)="addNote = true" *ngIf="!addNote">Add Note</button>
+                        <button type="button" class="btn btn-success"
+                                (click)="addNote = false; createNote();" *ngIf="addNote"
+                                [disabled]="Note.body.trim().length <= 0">Confirm</button>
+                        <button type="button" class="btn btn-info" (click)="closeView('noteView', 'myModal')">To Ticket</button>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
